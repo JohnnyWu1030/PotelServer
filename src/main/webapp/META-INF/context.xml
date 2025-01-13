@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+     <Resource name="jdbc/potel"
+         type="javax.sql.DataSource"
+         driverClassName="com.mysql.cj.jdbc.Driver"
+         jdbcUrl="jdbc:mysql://114.32.203.170:3306/potel"
+         username="root"
+         password="TIP102_25541859101"
+         factory="com.zaxxer.hikari.HikariJNDIFactory"
+         minIdle="1"
+         maxTotal="10"
+         dataSource.cachePrepStmts="true"
+         dataSource.prepStmtCacheSize="250"
+         dataSource.prepStmtCacheSqlLimit="2048"
+          />
+</Context>
