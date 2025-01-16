@@ -8,7 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import potel.utils.Defines;
+import potel.utils.JDBCConstants;
+
 import com.zaxxer.hikari.HikariDataSource;
 import potel.forum.dao.ForumDao;
 import potel.forum.vo.Comment;
@@ -18,22 +24,28 @@ import potel.forum.vo.Like;
 
 public class ForumDaoImpl implements ForumDao {
 
-	private HikariDataSource ds;
+//	private HikariDataSource ds;
+	private DataSource ds;
 
 	public ForumDaoImpl() {
-		// 配置 HikariCP
-		ds = new HikariDataSource();
-		ds.setJdbcUrl("jdbc:mysql://114.32.203.170:3306/potel");
+//		// 配置 HikariCP
+//		ds = new HikariDataSource();
+//		ds.setJdbcUrl("jdbc:mysql://114.32.203.170:3306/potel");
 //		ds.setJdbcUrl("jdbc:mysql://localhost:3306/potel");
-		ds.setUsername("root");
-		ds.setPassword("TIP102_25541859101");
+//		ds.setUsername("root");
+//		ds.setPassword("TIP102_25541859101");
 //		ds.setPassword("89705131");
-		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-
-		// HikariCP 配置
-		ds.setIdleTimeout(60000); // 60 秒
-		ds.setMaxLifetime(1800000); // 30 分鐘
-		ds.setConnectionTimeout(30000); // 30 秒
+//		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//
+//		// HikariCP 配置
+//		ds.setIdleTimeout(60000); // 60 秒
+//		ds.setMaxLifetime(1800000); // 30 分鐘
+//		ds.setConnectionTimeout(30000); // 30 秒
+		try {
+			ds = JDBCConstants.getDataSource();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -211,13 +223,6 @@ public class ForumDaoImpl implements ForumDao {
 			e.printStackTrace();
 		}
 	}
-
-	public void printConnectionPoolStats() {
-		System.out.println("Active Connections: " + ds.getHikariPoolMXBean().getActiveConnections());
-		System.out.println("Idle Connections: " + ds.getHikariPoolMXBean().getIdleConnections());
-		System.out.println("Total Connections: " + ds.getHikariPoolMXBean().getTotalConnections());
-	}
-
 	@Override
 	public boolean deletePostAndComments(int postId) {
 		try (Connection connection = ds.getConnection()) {
