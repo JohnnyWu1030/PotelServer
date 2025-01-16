@@ -8,14 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 import potel.utils.Defines;
 import potel.utils.JDBCConstants;
-
-import com.zaxxer.hikari.HikariDataSource;
 import potel.forum.dao.ForumDao;
 import potel.forum.vo.Comment;
 import potel.forum.vo.CommentWithMemberName;
