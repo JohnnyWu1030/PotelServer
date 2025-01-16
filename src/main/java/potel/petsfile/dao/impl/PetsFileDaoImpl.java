@@ -8,24 +8,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zaxxer.hikari.HikariDataSource;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import potel.petsfile.dao.PetsFileDao;
 import potel.petsfile.vo.Cat;
 import potel.petsfile.vo.Dog;
+import potel.utils.JDBCConstants;
 
 public class PetsFileDaoImpl implements PetsFileDao {
 
-	private HikariDataSource ds;
+	private DataSource ds;
 
 	// 建構子，初始化數據源
 	public PetsFileDaoImpl() {
 		// 建議將數據源配置移到配置類中
-		ds = new HikariDataSource();
-		ds.setJdbcUrl("jdbc:mysql://114.32.203.170:3306/Potel");
-		ds.setUsername("root");
-		ds.setPassword("TIP102_25541859101");
-		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//		ds = new HikariDataSource();
+//		ds.setJdbcUrl("jdbc:mysql://114.32.203.170:3306/Potel");
+//		ds.setUsername("root");
+//		ds.setPassword("TIP102_25541859101");
+//		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+
+		try {
+			ds = JDBCConstants.getDataSource();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
