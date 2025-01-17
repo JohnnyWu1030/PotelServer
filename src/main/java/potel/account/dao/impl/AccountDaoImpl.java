@@ -127,6 +127,7 @@ public class AccountDaoImpl implements AccountDao {
 			stmt.setString(2, member.getAddress());
 			stmt.setString(3, member.getEmail());
 			stmt.setString(4, member.getPasswd());
+			stmt.setInt(5, member.getMemberid());
 			return stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
